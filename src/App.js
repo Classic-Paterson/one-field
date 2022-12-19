@@ -1,94 +1,196 @@
-import React, { useState } from 'react';
-import './App.css';
+import React, { useState } from "react";
+import styled from "styled-components";
 
+const OneFieldWrapper = styled.div`
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+
+  @media (max-width: 600px) {
+    width: 90%;
+  }
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+`;
+
+const Label = styled.label`
+  font-size: 16px;
+  margin: 10px 0;
+`;
+
+const Input = styled.input`
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+`;
+
+const Button = styled.button`
+  width: 50%;
+  background-color: #4caf50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #45a049;
+  }
+`;
 
 const OneField = () => {
-  const [timeLeftOffice, setTimeLeftOffice] = useState('');
-  const [timeArriveSite, setTimeArriveSite] = useState('');
-  const [timeLeftSite, setTimeLeftSite] = useState('');
-  const [timeArriveNextSite, setTimeArriveNextSite] = useState('');
-  const [serviceNumber, setServiceNumber] = useState('');
-  const [partNumberIn, setPartNumberIn] = useState('');
-  const [serialNumberIn, setSerialNumberIn] = useState('');
-  const [partNumberOut, setPartNumberOut] = useState('');
-  const [serialNumberOut, setSerialNumberOut] = useState('');
+  const [timeLeftOffice, setTimeLeftOffice] = useState("");
+  const [timeLeftLastSite, setTimeLeftLastSite] = useState("");
+  const [timeArriveSite, setTimeArriveSite] = useState("");
+  const [timeLeftSite, setTimeLeftSite] = useState("");
+  const [timeArriveNextSite, setTimeArriveNextSite] = useState("");
+  const [timeArriveOffice, setTimeArriveOffice] = useState("");
+  const [serviceNumber, setServiceNumber] = useState("");
+  const [partNumberIn, setPartNumberIn] = useState("");
+  const [serialNumberIn, setSerialNumberIn] = useState("");
+  const [partNumberOut, setPartNumberOut] = useState("");
+  const [serialNumberOut, setSerialNumberOut] = useState("");
 
-  const setCurrentTime = (setTime) => {
-    // Get the current time
+  const handleTimeLeftOffice = () => {
     const currentTime = new Date();
-
-    // Round the minutes to the nearest 15
-    let minutes = currentTime.getMinutes();
-    minutes = Math.round(minutes / 15) * 15;
-
-    // Set the time in the input field
-    setTime(`${currentTime.getHours()}:${minutes}`);
+    const roundedTime = new Date(Math.ceil(currentTime.getTime() / (15 * 60 * 1000)) * (15 * 60 * 1000));
+    setTimeLeftOffice(roundedTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }));
   };
 
-  const generateEmail = (timeLeftOffice, timeArriveSite, timeLeftSite, timeArriveNextSite, serviceNumber, partNumberIn, serialNumberIn, partNumberOut, serialNumberOut) => {
-    return `
-      Dear Coordinator,
-
-      Here is the information for today's service call:
-      Time Left Office: ${timeLeftOffice}
-      Time Arrive Site: ${timeArriveSite}
-      Time Left Site: ${timeLeftSite}
-      Time Arrive next site OR Time arrive office: ${timeArriveNextSite}
-      Service Number: ${serviceNumber}
-      Part Number (in): ${partNumberIn}
-      Serial Number (in): ${serialNumberIn}
-      Part Number (out): ${partNumberOut}
-      Serial Number (out): ${serialNumberOut}
-
-      Regards,
-      [Your Name]
-    `;
+  const handleTimeLeftLastSite = () => {
+    const currentTime = new Date();
+    const roundedTime = new Date(Math.ceil(currentTime.getTime() / (15 * 60 * 1000)) * (15 * 60 * 1000));
+    setTimeLeftLastSite(roundedTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleTimeArriveSite = () => {
+    const currentTime = new Date();
+    const roundedTime = new Date(Math.ceil(currentTime.getTime() / (15 * 60 * 1000)) * (15 * 60 * 1000));
+    setTimeArriveSite(roundedTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }));
+  };
 
-    // Generate the email template
-    const email = generateEmail(timeLeftOffice, timeArriveSite, timeLeftSite, timeArriveNextSite, serviceNumber, partNumberIn, serialNumberIn, partNumberOut, serialNumberOut);
-    console.log(email)
-    // Send the email using your preferred method (e.g. using an email library or API)
+  const handleTimeLeftSite = () => {
+    const currentTime = new Date();
+    const roundedTime = new Date(Math.ceil(currentTime.getTime() / (15 * 60 * 1000)) * (15 * 60 * 1000));
+    setTimeLeftSite(roundedTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }));
+  };
+
+  const handleTimeArriveNextSite = () => {
+    const currentTime = new Date();
+    const roundedTime = new Date(Math.ceil(currentTime.getTime() / (15 * 60 * 1000)) * (15 * 60 * 1000));
+    setTimeArriveNextSite(roundedTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }));
+  };
+
+  const handleTimeArriveOffice = () => {
+    const currentTime = new Date();
+    const roundedTime = new Date(Math.ceil(currentTime.getTime() / (15 * 60 * 1000)) * (15 * 60 * 1000));
+    setTimeArriveOffice(roundedTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }));
+  };
+
+  const handleScanBarcodeIn = () => {
+    // Implement barcode scanning functionality here
+  };
+
+  const handleScanBarcodeOut = () => {
+    // Implement barcode scanning functionality here
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Generate email template and output to console
+    const emailTemplate = `
+Service Number: ${serviceNumber}
+Time Left Office: ${timeLeftOffice}
+Time Left Last Site: ${timeLeftLastSite}
+Time Arrive Site: ${timeArriveSite}
+Time Left Site: ${timeLeftSite}
+Time Arrive Next Site: ${timeArriveNextSite}
+Time Arrive Office: ${timeArriveOffice}
+Part Number In: ${partNumberIn}
+Serial Number In: ${serialNumberIn}
+Part Number Out: ${partNumberOut}
+Serial Number Out: ${serialNumberOut}
+`;
+
+    console.log(emailTemplate);
   };
 
   return (
-    <form className="form" onSubmit={handleSubmit}>
-      <label>Time Left Office:</label>
-      <input type="text" value={timeLeftOffice} onChange={(e) => setTimeLeftOffice(e.target.value)} />
-      <button type="button" onClick={() => setCurrentTime(setTimeLeftOffice)}>Set Time</button>
-      <br />
-      <label>Time Arrive Site:</label>
-      <input type="text" value={timeArriveSite} onChange={(e) => setTimeArriveSite(e.target.value)} />
-      <button type="button" onClick={() => setCurrentTime(setTimeArriveSite)}>Set Time</button>
-      <br />
-      <label>Time Left Site:</label>
-      <input type="text" value={timeLeftSite} onChange={(e) => setTimeLeftSite(e.target.value)} />
-      <button type="button" onClick={() => setCurrentTime(setTimeLeftSite)}>Set Time</button>
-      <br />
-      <label>Time Arrive next site OR Time arrive office:</label>
-      <input type="text" value={timeArriveNextSite} onChange={(e) => setTimeArriveNextSite(e.target.value)} />
-      <button type="button" onClick={() => setCurrentTime(setTimeArriveNextSite)}>Set Time</button>
-      <br />
-      <label>Service Number:</label>
-      <input type="text" value={serviceNumber} onChange={(e) => setServiceNumber(e.target.value)} />
-      <br />
-      <label>Part Number:</label>
-      <input type="text" value={partNumberIn} onChange={(e) => setPartNumberIn(e.target.value)} />
-      <br />
-      <label>Serial Number of part going in:</label>
-      <input type="text" value={serialNumberIn} onChange={(e) => setSerialNumberIn(e.target.value)} />
-      <br />
-      <label>Part Number:</label>
-      <input type="text" value={partNumberOut} onChange={(e) => setPartNumberOut(e.target.value)} />
-      <br />
-      <label>Serial Number of part going out:</label>
-      <input type="text" value={serialNumberOut} onChange={(e) => setSerialNumberOut(e.target.value)} />
-      <br />
-      <button type="submit">Send Email</button>
-    </form>
+    <OneFieldWrapper>
+      <Form onSubmit={handleSubmit}>
+        <Label>Time Left Office:</Label>
+        <Input type="text" value={timeLeftOffice} onChange={(event) => setTimeLeftOffice(event.target.value)} />
+        <Button type="button" onClick={handleTimeLeftOffice}>
+          Set Time
+        </Button>
+        <Label>Time Left Last Site:</Label>
+        <Input type="text" value={timeLeftLastSite} onChange={(event) => setTimeLeftLastSite(event.target.value)} />
+        <Button type="button" onClick={handleTimeLeftLastSite}>
+          Set Time
+        </Button>
+        <Label>Time Arrive Site:</Label>
+        <Input type="text" value={timeArriveSite} onChange={(event) => setTimeArriveSite(event.target.value)} />
+        <Button type="button" onClick={handleTimeArriveSite}>
+          Set Time
+        </Button>
+
+        <Label>Time Left Site:</Label>
+        <Input type="text" value={timeLeftSite} onChange={(event) => setTimeLeftSite(event.target.value)} />
+        <Button type="button" onClick={handleTimeLeftSite}>
+          Set Time
+        </Button>
+
+        <Label>Time Arrive Next Site:</Label>
+        <Input type="text" value={timeArriveNextSite} onChange={(event) => setTimeArriveNextSite(event.target.value)} />
+        <Button type="button" onClick={handleTimeArriveNextSite}>
+          Set Time
+        </Button>
+
+        <Label>Time Arrive Office:</Label>
+        <Input type="text" value={timeArriveOffice} onChange={(event) => setTimeArriveOffice(event.target.value)} />
+        <Button type="button" onClick={handleTimeArriveOffice}>
+          Set Time
+        </Button>
+
+        <Label>Service Number:</Label>
+        <Input type="text" value={serviceNumber} onChange={(event) => setServiceNumber(event.target.value)} />
+
+        <Label>Part Number In:</Label>
+        <Input type="text" value={partNumberIn} onChange={(event) => setPartNumberIn(event.target.value)} />
+        <Button type="button" onClick={handleScanBarcodeIn}>
+          Scan Barcode
+        </Button>
+
+        <Label>Serial Number In:</Label>
+        <Input type="text" value={serialNumberIn} onChange={(event) => setSerialNumberIn(event.target.value)} />
+        <Button type="button" onClick={handleScanBarcodeIn}>
+          Scan Barcode
+        </Button>
+
+        <Label>Part Number Out:</Label>
+        <Input type="text" value={partNumberOut} onChange={(event) => setPartNumberOut(event.target.value)} />
+        <Button type="button" onClick={handleScanBarcodeOut}>
+          Scan Barcode
+        </Button>
+
+        <Label>Serial Number Out:</Label>
+        <Input type="text" value={serialNumberOut} onChange={(event) => setSerialNumberOut(event.target.value)} />
+        <Button type="button" onClick={handleScanBarcodeOut}>
+          Scan Barcode
+        </Button>
+
+        <Button type="submit">Submit</Button>
+      </Form>
+    </OneFieldWrapper>
   );
 };
 
