@@ -1,70 +1,296 @@
-# Getting Started with Create React App
+# One-Field
+This was a rewrite of the first app I ever wrote (which landed me a job), it can be found [here.]('https://github.com/Classic-Paterson/OneField')
+However, this one was completly written using PseudoCode and auto generate from ChatGPT.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Transcript
 
-## Available Scripts
+DEFINE a `Web Component` using `React` with the name `OneField`
 
-In the project directory, you can run:
+INPUT `Time Left Office` OR `Time Left Last sitee`
 
-### `npm start`
+INPUT `Time Arrive Site`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+INPUT `Time Left Site`
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+INPUT `Time Arrive next site` OR `Time arrive office`
 
-### `npm test`
+INPUT `Service Number`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+INPUT `Part Number` AND `Serial Number` of part going in
 
-### `npm run build`
+INPUT `Part Number` AND `Serial Number` of part going out
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+GENERATE an `Email` template to send with all relevant information to coordinator
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+``` javascript
+import React, { useState } from 'react';
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+const OneField = () => {
+  const [timeLeftOffice, setTimeLeftOffice] = useState('');
+  const [timeArriveSite, setTimeArriveSite] = useState('');
+  const [timeLeftSite, setTimeLeftSite] = useState('');
+  const [timeArriveNextSite, setTimeArriveNextSite] = useState('');
 
-### `npm run eject`
+  const setCurrentTime = (setTime) => {
+    // Get the current time
+    const currentTime = new Date();
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+    // Round the minutes to the nearest 15
+    let minutes = currentTime.getMinutes();
+    minutes = Math.round(minutes / 15) * 15;
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    // Set the time in the input field
+    setTime(`${currentTime.getHours()}:${minutes}`);
+  };
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+  return (
+    <div>
+      <label>Time Left Office:</label>
+      <input type="text" value={timeLeftOffice} onChange={(e) => setTimeLeftOffice(e.target.value)} />
+      <button type="button" onClick={() => setCurrentTime(setTimeLeftOffice)}>Set Time</button>
+      <br />
+      <label>Time Arrive Site:</label>
+      <input type="text" value={timeArriveSite} onChange={(e) => setTimeArriveSite(e.target.value)} />
+      <button type="button" onClick={() => setCurrentTime(setTimeArriveSite)}>Set Time</button>
+      <br />
+      <label>Time Left Site:</label>
+      <input type="text" value={timeLeftSite} onChange={(e) => setTimeLeftSite(e.target.value)} />
+      <button type="button" onClick={() => setCurrentTime(setTimeLeftSite)}>Set Time</button>
+      <br />
+      <label>Time Arrive next site OR Time arrive office:</label>
+      <input type="text" value={timeArriveNextSite} onChange={(e) => setTimeArriveNextSite(e.target.value)} />
+      <button type="button" onClick={() => setCurrentTime(setTimeArriveNextSite)}>Set Time</button>
+      <br />
+      <label>Service Number:</label>
+      <input type="text" />
+      <br />
+      <label>Part Number:</label>
+      <input type="text" />
+      <br />
+      <label>Serial Number of part going in:</label>
+      <input type="text" />
+      <br />
+      <label>Part Number:</label>
+      <input type="text" />
+      <br />
+      <label>Serial Number of part going out:</label>
+      <input type="text" />
+    </div>
+  );
+};
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+export default OneField;
+```
 
-## Learn More
+```
+can the inputs that have "time" have a button to auto populate the input with the current time rounded to the nearest 15 minutes 
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+``` javascript
+import React, { useState } from 'react';
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+const OneField = () => {
+  const [timeLeftOffice, setTimeLeftOffice] = useState('');
+  const [timeArriveSite, setTimeArriveSite] = useState('');
+  const [timeLeftSite, setTimeLeftSite] = useState('');
+  const [timeArriveNextSite, setTimeArriveNextSite] = useState('');
 
-### Code Splitting
+  const setCurrentTime = (setTime) => {
+    // Get the current time
+    const currentTime = new Date();
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+    // Round the minutes to the nearest 15
+    let minutes = currentTime.getMinutes();
+    minutes = Math.round(minutes / 15) * 15;
 
-### Analyzing the Bundle Size
+    // Set the time in the input field
+    setTime(`${currentTime.getHours()}:${minutes}`);
+  };
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+  return (
+    <div>
+      <label>Time Left Office:</label>
+      <input type="text" value={timeLeftOffice} onChange={(e) => setTimeLeftOffice(e.target.value)} />
+      <button type="button" onClick={() => setCurrentTime(setTimeLeftOffice)}>Set Time</button>
+      <br />
+      <label>Time Arrive Site:</label>
+      <input type="text" value={timeArriveSite} onChange={(e) => setTimeArriveSite(e.target.value)} />
+      <button type="button" onClick={() => setCurrentTime(setTimeArriveSite)}>Set Time</button>
+      <br />
+      <label>Time Left Site:</label>
+      <input type="text" value={timeLeftSite} onChange={(e) => setTimeLeftSite(e.target.value)} />
+      <button type="button" onClick={() => setCurrentTime(setTimeLeftSite)}>Set Time</button>
+      <br />
+      <label>Time Arrive next site OR Time arrive office:</label>
+      <input type="text" value={timeArriveNextSite} onChange={(e) => setTimeArriveNextSite(e.target.value)} />
+      <button type="button" onClick={() => setCurrentTime(setTimeArriveNextSite)}>Set Time</button>
+      <br />
+      <label>Service Number:</label>
+      <input type="text" />
+      <br />
+      <label>Part Number:</label>
+      <input type="text" />
+      <br />
+      <label>Serial Number of part going in:</label>
+      <input type="text" />
+      <br />
+      <label>Part Number:</label>
+      <input type="text" />
+      <br />
+      <label>Serial Number of part going out:</label>
+      <input type="text" />
+    </div>
+  );
+};
 
-### Making a Progressive Web App
+export default OneField;
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```
+can you include the `generateEmail` function to the example
+```
 
-### Advanced Configuration
+```javascript
+import React, { useState } from 'react';
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+const OneField = () => {
+  const [timeLeftOffice, setTimeLeftOffice] = useState('');
+  const [timeArriveSite, setTimeArriveSite] = useState('');
+  const [timeLeftSite, setTimeLeftSite] = useState('');
+  const [timeArriveNextSite, setTimeArriveNextSite] = useState('');
+  const [serviceNumber, setServiceNumber] = useState('');
+  const [partNumberIn, setPartNumberIn] = useState('');
+  const [serialNumberIn, setSerialNumberIn] = useState('');
+  const [partNumberOut, setPartNumberOut] = useState('');
+  const [serialNumberOut, setSerialNumberOut] = useState('');
 
-### Deployment
+  const setCurrentTime = (setTime) => {
+    // Get the current time
+    const currentTime = new Date();
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+    // Round the minutes to the nearest 15
+    let minutes = currentTime.getMinutes();
+    minutes = Math.round(minutes / 15) * 15;
 
-### `npm run build` fails to minify
+    // Set the time in the input field
+    setTime(`${currentTime.getHours()}:${minutes}`);
+  };
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+  const generateEmail = (timeLeftOffice, timeArriveSite, timeLeftSite, timeArriveNextSite, serviceNumber, partNumberIn, serialNumberIn, partNumberOut, serialNumberOut) => {
+    return `
+      Dear Coordinator,
+
+      Here is the information for today's service call:
+      Time Left Office: ${timeLeftOffice}
+      Time Arrive Site: ${timeArriveSite}
+      Time Left Site: ${timeLeftSite}
+      Time Arrive next site OR Time arrive office: ${timeArriveNextSite}
+      Service Number: ${serviceNumber}
+      Part Number (in): ${partNumberIn}
+      Serial Number (in): ${serialNumberIn}
+      Part Number (out): ${partNumberOut}
+      Serial Number (out): ${serialNumberOut}
+
+      Regards,
+      [Your Name]
+    `;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Generate the email template
+    const email = generateEmail(timeLeftOffice, timeArriveSite, timeLeftSite, timeArriveNextSite, serviceNumber, partNumberIn, serialNumberIn, partNumberOut, serialNumberOut);
+
+    console.log(email)
+    // Send the email using your preferred method (e.g. using an email library or API)
+  };
+
+  return (
+    <form className="form" onSubmit={handleSubmit}>
+      <label>Time Left Office:</label>
+      <input type="text" value={timeLeftOffice} onChange={(e) => setTimeLeftOffice(e.target.value)} />
+      <button type="button" onClick={() => setCurrentTime(setTimeLeftOffice)}>Set Time</button>
+      <br />
+      <label>Time Arrive Site:</label>
+      <input type="text" value={timeArriveSite} onChange={(e) => setTimeArriveSite(e.target.value)} />
+      <button type="button" onClick={() => setCurrentTime(setTimeArriveSite)}>Set Time</button>
+      <br />
+      <label>Time Left Site:</label>
+      <input type="text" value={timeLeftSite} onChange={(e) => setTimeLeftSite(e.target.value)} />
+      <button type="button" onClick={() => setCurrentTime(setTimeLeftSite)}>Set Time</button>
+      <br />
+      <label>Time Arrive next site OR Time arrive office:</label>
+      <input type="text" value={timeArriveNextSite} onChange={(e) => setTimeArriveNextSite(e.target.value)} />
+      <button type="button" onClick={() => setCurrentTime(setTimeArriveNextSite)}>Set Time</button>
+      <br />
+      <label>Service Number:</label>
+      <input type="text" value={serviceNumber} onChange={(e) => setServiceNumber(e.target.value)} />
+      <br />
+      <label>Part Number:</label>
+      <input type="text" value={partNumberIn} onChange={(e) => setPartNumberIn(e.target.value)} />
+      <br />
+      <label>Serial Number of part going in:</label>
+      <input type="text" value={serialNumberIn} onChange={(e) => setSerialNumberIn(e.target.value)} />
+      <br />
+      <label>Part Number:</label>
+      <input type="text" value={partNumberOut} onChange={(e) => setPartNumberOut(e.target.value)} />
+      <br />
+      <label>Serial Number of part going out:</label>
+      <input type="text" value={serialNumberOut} onChange={(e) => setSerialNumberOut(e.target.value)} />
+      <br />
+      <button type="submit">Send Email</button>
+    </form>
+  );
+};
+
+export default OneField;
+```
+
+```
+Can you make this mobile responsive, have padding top and bottom, have a max width and add styling: import React, { useState } from 'react';
+```
+
+```
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 0; /* Add a padding around the top and bottom of the form */
+  max-width: 400px; /* Set the maximum width of the form */
+}
+
+label {
+  margin-bottom: 0.5rem;
+}
+
+input {
+  width: 80%;
+  height: 2rem;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+button {
+  width: 80%;
+  height: 2.5rem;
+  border: none;
+  border-radius: 0.25rem;
+  background-color: #0070f3;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0052cc;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: default;
+}
+```
+
